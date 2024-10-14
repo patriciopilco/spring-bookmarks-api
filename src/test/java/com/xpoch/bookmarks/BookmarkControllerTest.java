@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
+import org.hamcrest.CoreMatchers;
 
 import static io.restassured.RestAssured.given;
 
@@ -27,6 +28,25 @@ public class BookmarkControllerTest {
             .when()
             .get("/api/bookmarks/1")
             .then()
-            .statusCode(200);
+            .statusCode(200)
+            .body("title", CoreMatchers.equalTo("SivaLabs Blog"));
+    }
+
+
+    @Test
+    public void shouldCreateBookmarkSuccessfully() {
+        String payload = """
+            {
+                "url": "https://www.sivalabs.in",
+                "title": "SivaLabs Website"
+            }
+            """;
+        given()
+            .contentType("application/json")
+            .body(payload)
+            .when()
+            .post("/api/bookmarks")
+            .then()
+            .statusCode(201);
     }
 }
