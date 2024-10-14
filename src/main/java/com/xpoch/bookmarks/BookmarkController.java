@@ -34,7 +34,7 @@ public class BookmarkController {
     }
 
     @PostMapping
-    ResponseEntity<BookmarkDTO> create(@RequestBody @Valid CreateBookmarkRequest payload) {
+    ResponseEntity<Void> create(@RequestBody @Valid CreateBookmarkRequest payload) {
         CreateBookmarkCmd cmd = new CreateBookmarkCmd(payload.title(), payload.url(), 1L);
         Long id  = bookmarkService.createBookmark(cmd);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
