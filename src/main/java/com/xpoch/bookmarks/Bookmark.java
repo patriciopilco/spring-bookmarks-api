@@ -11,7 +11,8 @@ import java.time.Instant;
 @Table(name = "bookmarks")
 public class Bookmark {
     @Id
-    @ColumnDefault("nextval('bookmark_id_seq'::regclass)")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bookmarks_id_gen")
+    @SequenceGenerator(name = "bookmarks_id_gen", sequenceName = "bookmark_id_seq", initialValue = 101)
     @Column(name = "id", nullable = false)
     private Long id;
 

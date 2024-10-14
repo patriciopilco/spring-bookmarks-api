@@ -1,9 +1,6 @@
 package com.xpoch.bookmarks;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
@@ -14,7 +11,8 @@ import java.time.Instant;
 @Table(name = "users")
 public class User {
     @Id
-    @ColumnDefault("nextval('user_id_seq'::regclass)")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_gen")
+    @SequenceGenerator(name = "users_id_gen", sequenceName = "user_id_seq", initialValue = 101)
     @Column(name = "id", nullable = false)
     private Long id;
 
